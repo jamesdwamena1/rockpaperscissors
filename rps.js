@@ -7,55 +7,66 @@ function getComputerChoice() {
     return choices[randomChoice]; 
 }
 
-function getHumanChoice() {
-    let userChoice = prompt("Enter your choice (rock, paper, or scissors): ");
-    return userChoice;
-}
 
-function playRound() {
-    let humanChoice = getHumanChoice();  // Call the function to get the human choice
+function playRound(humanChoice) {
     let computerChoice = getComputerChoice();  // Call the function to get the computer choice
+
+    let resultMessage = '';
 
     switch (humanChoice) {
         case 'rock':
             if (computerChoice === 'paper') {
                 computerScore++;
-                console.log("You lose! Paper beats Rock.");
+                resultMessage = "You lose! Paper beats Rock.";
             } else if (computerChoice === "scissors") {
                 humanScore++;
-                console.log('You win! Rock beats Scissors.');
+                resultMessage = 'You win! Rock beats Scissors.';
             } else {
-                console.log("It's a draw. You both chose Rock.");
+                resultMessage = 'It is a draw. You both chose Rock.';
             }
             break;
         case 'paper':
             if (computerChoice === 'rock') {
                 humanScore++;
-                console.log('You win! Paper beats Rock.');
+                resultMessage = 'You win! Paper beats Rock.';
             } else if (computerChoice === 'scissors') {
                 computerScore++;
-                console.log('You lost! Scissors beat Paper.');
+                resultMessage = 'You lost! Scissors beat Paper.';
             } else {
-                console.log('It\'s a draw. You both chose Paper.');
+                resultMessage = 'It\'s a draw. You both chose Paper.';
             }
             break;
         case 'scissors':
             if (computerChoice === 'rock') {
                 computerScore++;
-                console.log('You lost! Rock beats Scissors.');
+                resultMessage = 'You lost! Rock beats Scissors.';
             } else if (computerChoice === 'paper') {
                 humanScore++;
-                console.log('You won! Scissors beat Paper.');
+                resultMessage = 'You won! Scissors beat Paper.';
             } else {
-                console.log('It\'s a draw. You both chose Scissors.');
+                resultMessage = 'It is a draw. You both chose Scissors.';
             }
             break;
-        default:
-            console.log('Invalid choice. Please choose rock, paper, or scissors.');
+        
     }
+    let resultOne = document.querySelector('.result');
+    resultOne.textContent = resultMessage;
 
-    console.log(`Human: ${humanScore} | Computer: ${computerScore}`);
+    let score = document.getElementById("score")
+    score.textContent = `Human: ${humanScore} | Computer: ${computerScore}`;
+
 }
 
-// Play one round
-playRound();
+const rockButton = document.querySelector('#rock-button');
+const paperButton = document.querySelector('#paper-button');
+const scissorsButton = document.querySelector('#scissors-button');
+
+rockButton.addEventListener('click',function() {
+    playRound("rock"); 
+});
+paperButton.addEventListener('click',function() {
+    playRound("rock");
+});
+scissorsButton.addEventListener('click',function() {
+    playRound("scissors");
+});
